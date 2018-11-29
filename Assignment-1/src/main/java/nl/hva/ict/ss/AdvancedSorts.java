@@ -12,7 +12,11 @@ public class AdvancedSorts {
      * @return
      */
     public static <E extends Comparable<E>> LinkedList<E> quickSort(LinkedList<E> unsorted) {
-        return unsorted;
+        return sort(unsorted, 0, unsorted.size() - 1);
+    }
+
+    public static <E extends Comparable<E>> LinkedList<E> sort(LinkedList<E> playerList, int first, int last) {
+        return playerList;
     }
 
     /**
@@ -27,32 +31,35 @@ public class AdvancedSorts {
 
     }
 
-    public static <E extends Comparable<E>> E[] sort(E[] playerList, final int left, final int right) {
+    public static <E extends Comparable<E>> E[] sort(E[] playerList, int left, int right) {
         int L = left;
         int R = right;
 
-        if (playerList.length <= 1) {
+        if (playerList == null || playerList.length == 0)
             return playerList;
-        }
 
-        E middlePlayer = playerList[(left + right) / 2];
+        if (left >= right)
+            return playerList;
 
-        do {
+        E middlePlayer = playerList[left + (right - left) / 2];
+
+        while (L <= R) {
             while (playerList[L].compareTo(middlePlayer) > 0) {
                 L++;
             }
+
             while (middlePlayer.compareTo(playerList[R]) < 0) {
                 R--;
             }
 
             if (L <= R) {
-                E leftPlayer = playerList[left];
-                playerList[left] = playerList[right];
-                playerList[right] = leftPlayer;
+                E leftPlayer = playerList[L];
+                playerList[L] = playerList[R];
+                playerList[R] = leftPlayer;
                 L++;
                 R--;
             }
-        } while (L < R);
+        }
 
         if (left < R) {
             sort(playerList, left, R);
