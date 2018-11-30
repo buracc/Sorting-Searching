@@ -2,8 +2,6 @@ package nl.hva.ict.ss;
 
 import java.util.LinkedList;
 
-import static javafx.scene.input.KeyCode.R;
-
 public class AdvancedSorts {
 
     /**
@@ -28,7 +26,7 @@ public class AdvancedSorts {
         E middlePlayer = playerList.get(firstIndex + (lastIndex - firstIndex) / 2);
 
         while (firstIndex <= lastIndex) {
-            while (playerList.get(firstIndex).compareTo(middlePlayer) > 0) {
+            while (playerList.get(firstIndex).compareTo(middlePlayer) < 0) {
                 firstIndex++;
             }
 
@@ -79,7 +77,7 @@ public class AdvancedSorts {
         E middlePlayer = playerList[left + (right - left) / 2];
 
         while (L <= R) {
-            while (playerList[L].compareTo(middlePlayer) > 0) {
+            while (playerList[L].compareTo(middlePlayer) < 0) {
                 L++;
             }
 
