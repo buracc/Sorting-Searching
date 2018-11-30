@@ -21,6 +21,7 @@ public class ExtendedAdvancedSortingTest extends AdvancedSortingTest {
         Player[] originalArrayCopy = playerArray.clone();
 
         AdvancedSorts.quickSort(playerArray);
+
         assertTrue(Arrays.equals(originalArrayCopy, playerArray));
     }
 
@@ -31,6 +32,7 @@ public class ExtendedAdvancedSortingTest extends AdvancedSortingTest {
         LinkedList<Player> originalLinkedListCopy = (LinkedList<Player>) playerLinkedList.clone();
 
         AdvancedSorts.quickSort(playerLinkedList);
+
         assertTrue(Arrays.equals(playerLinkedList.toArray(), originalLinkedListCopy.toArray()));
     }
 
@@ -45,12 +47,11 @@ public class ExtendedAdvancedSortingTest extends AdvancedSortingTest {
         Player[] correctPlayerArray = new Player[] {player4, player2, player1, player5, player3};
 
         AdvancedSorts.quickSort(playerArray);
-        for(Player player : playerArray) {
-            System.out.println(player.getHighScore()+ " " + player.getLastName());
-        }
+
         assertTrue(Arrays.equals(correctPlayerArray, playerArray));
     }
 
+    //Deze ook, maar het werkt
     @Test
     public void testLinkedListWith5() {
         Player player1 = new Player("Daniel", "Apenburg", 1200);
@@ -76,6 +77,21 @@ public class ExtendedAdvancedSortingTest extends AdvancedSortingTest {
         AdvancedSorts.quickSort(playerLinkedList);
 
         assertTrue(Arrays.equals(playerLinkedList.toArray(), correctLinkedList.toArray()));
+    }
+
+    @Test
+    public void test5SameNameArray() {
+        Player player1 = new Player("Henk", "Beestenboel", 1200);
+        Player player2 = new Player("Ferry", "Beestenboel", 1000);
+        Player player3 = new Player("Maarten", "Beestenboel", 1000);
+        Player player4 = new Player("Peter", "Beestenboel", 1200);
+        Player player5 = new Player("Menza", "Beestenboel", 1200);
+        Player[] playerArray = new Player[] {player1, player2, player3, player4, player5};
+        Player[] correctPlayerArray = new Player[] {player2, player3, player1, player5, player4};
+
+        AdvancedSorts.quickSort(playerArray);
+
+        assertTrue(Arrays.equals(correctPlayerArray, playerArray));
     }
 
 }
