@@ -1,5 +1,6 @@
 package nl.hva.ict.ss;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class AdvancedSorts {
@@ -99,6 +100,52 @@ public class AdvancedSorts {
         }
         if (L < right) {
             sort(playerList, L, right);
+        }
+        return playerList;
+    }
+
+
+    /**
+     * test
+     */
+
+    public static <E extends Comparable<E>> ArrayList<E> quickSort(ArrayList<E> unsorted) {
+        return sort(unsorted, 0, unsorted.size() - 1);
+    }
+
+    public static <E extends Comparable<E>> ArrayList<E> sort(ArrayList<E> playerList, int first, int last) {
+        int firstIndex = first;
+        int lastIndex = last;
+
+        if (playerList == null || playerList.size() <= 1) {
+            return playerList;
+        }
+
+        E middlePlayer = playerList.get(firstIndex + (lastIndex - firstIndex) / 2);
+
+        while (firstIndex <= lastIndex) {
+            while (playerList.get(firstIndex).compareTo(middlePlayer) < 0) {
+                firstIndex++;
+            }
+
+            while (middlePlayer.compareTo(playerList.get(lastIndex)) < 0) {
+                lastIndex--;
+            }
+
+            if (firstIndex <= lastIndex) {
+                E firstPlayer = playerList.get(firstIndex);
+                playerList.set(firstIndex, playerList.get(lastIndex));
+                playerList.set(lastIndex, firstPlayer);
+                firstIndex++;
+                lastIndex--;
+            }
+        }
+
+        if (first < lastIndex) {
+            sort(playerList, first, lastIndex);
+        }
+        if (firstIndex < last) {
+            sort(playerList, firstIndex, last);
         }
         return playerList;
     }

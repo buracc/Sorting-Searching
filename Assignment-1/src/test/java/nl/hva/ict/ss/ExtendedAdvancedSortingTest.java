@@ -3,8 +3,10 @@ package nl.hva.ict.ss;
 import org.junit.Test;
 
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertTrue;
 
@@ -25,7 +27,6 @@ public class ExtendedAdvancedSortingTest extends AdvancedSortingTest {
         assertTrue(Arrays.equals(originalArrayCopy, playerArray));
     }
 
-    //Deze is echt ziek lelijk
     @Test
     public void testEmptyLinkedList() {
         LinkedList<Player> playerLinkedList = new LinkedList<>();
@@ -51,7 +52,6 @@ public class ExtendedAdvancedSortingTest extends AdvancedSortingTest {
         assertTrue(Arrays.equals(correctPlayerArray, playerArray));
     }
 
-    //Deze ook, maar het werkt
     @Test
     public void testLinkedListWith5() {
         Player player1 = new Player("Daniel", "Apenburg", 1200);
@@ -93,5 +93,39 @@ public class ExtendedAdvancedSortingTest extends AdvancedSortingTest {
 
         assertTrue(Arrays.equals(correctPlayerArray, playerArray));
     }
+
+    @Test
+    public void measureEfficiencyArrayList() {
+        System.out.printf("ArrayList implementation%n");
+        long timeNeeded = 0;
+        for (int numberOfPlayers = 100; numberOfPlayers < UPPER_LIMIT && timeNeeded < TWENTY_SECONDS; numberOfPlayers *= 2) {
+            ArrayList<Player> players = getSubListArrayList(unsortedPlayersArrayList, numberOfPlayers);
+            System.gc();
+
+            long start = System.nanoTime();
+            AdvancedSorts.quickSort(players);
+            long finish = System.nanoTime();
+
+            // Try to keep measurements steady
+            players.clear();
+            System.gc();
+
+            timeNeeded = TimeUnit.NANOSECONDS.toMillis(finish - start);
+
+            System.out.printf("%d;%d%n", numberOfPlayers, timeNeeded);
+            System.out.flush();
+        }
+    }
+
+    ArrayList<Player> getSubListArrayList(ArrayList<Player> players, int numberOfPlayers) {
+        ArrayList<Player> unsortedPlayers = new ArrayList<>();
+        int i = 0;
+        for (Player player : players) {
+            unsortedPlayers.add(player);
+            if (++i == numberOfPlayers) break;
+        }
+        return unsortedPlayers;
+    }
+
 
 }

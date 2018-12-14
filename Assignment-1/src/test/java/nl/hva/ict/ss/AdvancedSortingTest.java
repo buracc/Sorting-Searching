@@ -5,6 +5,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -22,6 +23,7 @@ public class AdvancedSortingTest {
     static final int UPPER_LIMIT = 1<<20; // 1.048.576
     static final Random randomizer = new SecureRandom();
     static LinkedList<Player> unsortedPlayers = new LinkedList<>();
+    static ArrayList<Player> unsortedPlayersArrayList = new ArrayList<>();
 
     @BeforeClass
     public static void setup() {
@@ -33,6 +35,7 @@ public class AdvancedSortingTest {
             String firstName = firstNames[randomizer.nextInt(firstNames.length)];
             String lastName = lastNames[randomizer.nextInt(lastNames.length)];
             unsortedPlayers.addLast(new Player(firstName, lastName, randomizer.nextInt(MAX_HIGH_SCORE)));
+            unsortedPlayersArrayList.add(new Player(firstName, lastName, randomizer.nextInt(MAX_HIGH_SCORE)));
         }
         System.out.printf("%nStart measurements.%n%n");
         System.out.flush();
@@ -83,6 +86,7 @@ public class AdvancedSortingTest {
             timeNeeded = TimeUnit.NANOSECONDS.toMillis(finish - start);
 
             System.out.printf("%d;%d%n", numberOfPlayers, timeNeeded);
+            System.out.println(players.size());
             System.out.flush();
         }
     }
